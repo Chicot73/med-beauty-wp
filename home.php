@@ -5,7 +5,6 @@ Template Name: home
 ?>
 
 <?php get_header(); ?>
-
 <main>
     <article class="hero">
       <div class="container">

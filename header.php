@@ -30,9 +30,7 @@
           <button class="header__form-btn button__sub" type="button">Связаться</button>
         </div>
         <button class="header__cross" type="button">
-          <picture>
-            <source srcset="<?php bloginfo('template_url'); ?>/assets/img/cross.svg" type="image/webp"><img src="<?php bloginfo('template_url'); ?>/assets/img/cross.svg" alt="закрыть дополнительное меню">
-          </picture>
+          <img src="<?php bloginfo('template_url'); ?>/assets/img/cross.svg" alt="закрыть дополнительное меню">
         </button>
       </div>
       <form class="header__form form" id="form" action="#" method="POST">
@@ -48,7 +46,7 @@
       </form>
       <div class="container">
         <div class="header__top">
-          <div class="header__logo-burger">
+          <div class="header__logo">
             <?php the_custom_logo(); ?>
           </div>
           <div class="header__between"></div>

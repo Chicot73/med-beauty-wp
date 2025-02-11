@@ -3,7 +3,7 @@
 add_action( 'wp_enqueue_scripts', function() {
 
     wp_enqueue_style( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css' );
-    wp_enqueue_style( 'main.min.css', get_template_directory_uri() . '/assets/css/main.min.css' );
+    wp_enqueue_style( 'main.min', get_template_directory_uri() . '/assets/css/main.min.css' );
 
     wp_enqueue_script( 'swiper-bundle', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), 'null', true );
     wp_enqueue_script( 'inputmask', get_template_directory_uri() . '/assets/js/inputmask.min.js', array(), 'null', true );
