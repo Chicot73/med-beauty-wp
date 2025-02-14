@@ -1,9 +1,116 @@
-<?php
-/*
-Template Name: home
-*/
-?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
 
+<head>
+  <meta charset="<?php bloginfo('charset'); ?>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Med Beauty</title>
+  <meta name="description"
+    content="Медицинское и косметологическое оборудование. Индивидуальные решения для вашего бизнеса">
+  <?php wp_head(); ?>
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__cover"></div>
+    <div class="header__burger">
+      <div class="header__burger-wrap">
+        <div class="header__logo-burger">
+          <?php the_custom_logo(); ?>
+        </div>
+        <nav id="header_links">
+          <a class="header__burger-item" id="testdrive-item" onclick="TestDriveFn()">Test-drive</a>
+          <a class="header__burger-item" href="#">О нас </a>
+          <a class="header__burger-item" href="#">Оборудование</a>
+          <a class="header__burger-item" href="#">Академия</a>
+          <a class="header__burger-item" href="#">Консалтинг</a>
+          <a class="header__burger-item" id="questions-item" onclick="questionsFn()">FAQ</a>
+          <a class="header__burger-item" href="#">Контакты</a>
+        </nav>
+        <button class="header__form-btn button__sub" type="button">Связаться</button>
+      </div>
+      <button class="header__cross" type="button">
+        <picture>
+          <source srcset="img/cross.svg" type="image/webp">
+          <img src="img/cross.svg" alt="закрыть дополнительное меню">
+        </picture>
+      </button>
+    </div>
+    <form class="header__form form" id="form" action="#" method="POST">
+      <h2 class="form__title">Остались вопросы?</h2>
+      <label id="label1" for="name">
+        <div class="form__imglab">
+          <picture>
+            <source srcset="img/form_call.svg" type="image/webp">
+            <img src="img/form_call.svg" alt="name">
+          </picture>
+        </div>
+        <input class="form__input" type="text" name="name" id="name" placeholder="Ваше имя" maxlength="35">
+      </label>
+      <label id="label2" for="phone">
+        <div class="form__imglab">
+          <picture>
+            <source srcset="img/form_pers.svg" type="image/webp">
+            <img src="img/form_pers.svg" alt="name">
+          </picture>
+        </div>
+        <input class="form__input tel-selector" type="tel" name="phone" id="phone" placeholder="Ваш телефон">
+      </label>
+      <label for="question">
+        <textarea class="form__input" name="question" id="question" placeholder="Здесь будет Ваш вопрос"
+          maxlength="1500">
+        </textarea>
+      </label>
+      <input class="form__check" type="checkbox" name="agree" id="agree"
+        value="Я даю согласие на обработку моих персональных данных">
+      <label class="form__check-label" for="agree">Я даю согласие на обработку персольных данных в соответствии с
+        политикой конфиденциальности и условием пользования
+      </label>
+      <p class="form__confirm" id="warning">Пожалуйста дайте свое согласие на обработку персональных данных
+      </p>
+      <button class="form__btn button__sub" type="submit">Связаться</button>
+    </form>
+    <div class="container">
+      <div class="header__top">
+        <div class="header__logo">
+          <?php the_custom_logo(); ?>
+        </div>
+        <div class="header__between"></div>
+        <div class="header__wrapper">
+          <nav class="header__menu">
+            <a class="header__menu-item" id="testdrive-item" onclick="TestDriveFn()">Test-drive
+            </a>
+            <a class="header__menu-item" id="decisions-item" onclick="decisionsFn()">Решения
+            </a>
+            <a class="header__menu-item" id="learning-item" onclick="learningFn()">Обучение
+            </a>
+            <a class="header__menu-item" id="trust-item" onclick="trustFn()">Доверие
+            </a>
+            <a class="header__menu-item" id="questions-item" onclick="questionsFn()">FAQ
+            </a>
+            <button class="header__chose-lang" type="button"><span>RU</span>
+              <span>
+                <picture>
+                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/arrdown.svg" type="image/webp">
+                  <img src="<?php bloginfo('template_url'); ?>/assets/img/arrdown.svg" alt="стрелка вниз">
+                </picture>
+              </span>
+              <div class="header__randome">
+                <p class="header__randome-it" onclick="listener(event)">HE</p>
+                <p class="header__randome-it" onclick="listener(event)">AR</p>
+                <p class="header__randome-it" onclick="listener(event)">EN</p>
+              </div>
+            </button>
+          </nav> <button class="header__burger-btn" type="button">
+            <picture>
+              <source srcset="<?php bloginfo('template_url'); ?>/assets/img/burger.svg" type="image/webp">
+              <img src="<?php bloginfo('template_url'); ?>/assets/img/burger.svg" alt="дополнительное меню">
+            </picture>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
   <?php get_header(); ?>
   <main>
     <article class="hero">
@@ -63,53 +170,126 @@ Template Name: home
             </div>
           </div>
           <div class="slider__part2">
-            <div class="swiper">
-              <div class="swiper-wrapper">
-                <?php
-                  global $post;
+            <?php
+              global $post;
 
-                  $myposts = get_posts([
-                    'numberposts' => -1
-                  ]);
+              $myposts = get_posts([
+                'numberposts' => -1,
+                'offset'      => 1,
+                'category'    => 1
+              ]);
 
-                  if( $myposts ){
-                    foreach( $myposts as $post ){
-                      setup_postdata( $post );
-                ?>
-                  <div class="swiper-slide slider__slide">
-                    <div class="txts">
-                      <h3><?php the_title(); ?></h3>
-                      <blockquote><?php the_content(); ?></blockquote>
-                    </div>
-                    <div class="slider__image">
-                      <div class="slider__border1"></div>
-                      <div class="slider__border2"></div>
-                      <div class="slider__border3"></div>
-                      <div class="slider__border4"></div>
-                      <div class="slider__turget">
-                        <?php the_post_thumbnail(
-                          array(344, 576)); 
-                        ?>
+              if( $myposts ){
+                foreach( $myposts as $post ){
+                  setup_postdata( $post );
+                  ?>
+                    <div class="swiper">
+                      <div class="swiper-wrapper">
+                        <div class="swiper-slide slider__slide">
+                          <div class="slider__image">
+                            <div class="slider__turget">
+                              <?php the_post_thumbnail(344, 576); ?>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <p>Современное оборудование, созданное для профессионалов индустрии красоты. Аппараты, которые
+                  <?php
+                }
+              }
+
+              wp_reset_postdata(); // Сбрасываем $post
+            ?>
+
+
+
+
+
+
+
+            <div class="swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide slider__slide">
+                  <div class="txts">
+                    <h3>Косметологическое оборудование</h3>
+                    <p>Многофункциональные аппараты для омоложения, лифтинга и&nbsp;коррекции эстетических недостатков
+                      лица и&nbsp;тела
+                    </p>
+                  </div>
+                  <div class="slider__image">
+                    <div class="slider__border1"></div>
+                    <div class="slider__border2"></div>
+                    <div class="slider__border3"></div>
+                    <div class="slider__border4"></div>
+                    <div class="slider__turget">
+                      <picture>
+                        <source srcset="img/card_product1.webp" type="image/webp">
+                        <img src="img/card_product1.png" alt="product1" loading="lazy">
+                      </picture>
+                    </div>
+                  </div>
+                  <p>Современное оборудование, созданное для профессионалов индустрии красоты. Аппараты, которые
                     помогают проводить эффективные процедуры для ухода за кожей, омоложения, коррекции фигуры и решения
                     эстетических задач. Удобство использования, надежность и инновационные технологии для повышения
-                    качества услуг и роста вашего бизнеса.</p>
+                    качества услуг и роста вашего бизнеса.
+                  </p>
+                </div>
+                <div class="swiper-slide slider__slide">
+                  <div class="txts">
+                    <h3>Медицинское оборудование</h3>
+                    <p>Процедуры профессионального уровня у вас дома</p>
                   </div>
-                <?php } } wp_reset_postdata(); ?>
+                  <div class="slider__image">
+                    <div class="slider__border1"></div>
+                    <div class="slider__border2"></div>
+                    <div class="slider__border3"></div>
+                    <div class="slider__border4"></div>
+                    <div class="slider__turget slider__turget-1">
+                      <picture>
+                        <source srcset="img/card_product2.webp" type="image/webp"><img src="img/card_product2.png"
+                          alt="product2" loading="lazy">
+                      </picture>
+                    </div>
+                  </div>
+                  <p>Оборудование медицинского уровня для работы в клиниках и специализированных кабинетах. Аппараты,
+                    отвечающие строгим стандартам качества, обеспечивают высокую точность, безопасность и эффективность
+                    процедур. Поддержите свою практику с помощью технологий, которым доверяют профессионалы.
+                  </p>
+                </div>
+                <div class="swiper-slide slider__slide">
+                  <div class="txts">
+                    <h3>Бьюти девайсы</h3>
+                    <p>Процедуры профессионального уровня у вас дома</p>
+                  </div>
+                  <div class="slider__image">
+                    <div class="slider__border1"></div>
+                    <div class="slider__border2"></div>
+                    <div class="slider__border3"></div>
+                    <div class="slider__border4"></div>
+                    <div class="slider__turget slider__turget-2">
+                      <picture>
+                        <source srcset="img/card_product3.webp" type="image/webp">
+                        <img src="img/card_product3.png" alt="product3" loading="lazy">
+                      </picture>
+                    </div>
+                  </div>
+                  <p>Аппараты для тех, кто ценит профессиональный уход в домашних условиях. Инновационные устройства,
+                    которые просты в использовании и обеспечивают высокую эффективность процедур. Создайте свой личный
+                    бьюти-центр с надежным оборудованием для здоровья и красоты.
+                  </p>
+                </div>
               </div>
               <div class="swiper-pagination"></div>
               <div class="slider__btn-next">
                 <picture>
-                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" type="image/webp">
-                  <img src="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" alt="вправо">
+                  <source srcset="img/arrow.svg" type="image/webp">
+                  <img src="img/arrow.svg" alt="вправо">
                 </picture>
               </div>
               <div class="slider__btn-prev">
                 <picture>
-                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" type="image/webp">
-                  <img src="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" alt="влево">
+                  <source srcset="img/arrow.svg" type="image/webp">
+                  <img src="img/arrow.svg" alt="влево">
                 </picture>
               </div>
             </div>
@@ -554,3 +734,69 @@ Template Name: home
     <div class="cover"></div>
   </main>
   <?php get_footer(); ?>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__wrapper">
+        <div class="footer__office">
+          <div class="footer__logo">
+            <?php the_custom_logo(); ?>
+          </div>
+          <address class="footer__address">Израиль, Реховотул. Моти Кинд 2</address>
+          <p class="footer__hours">вск-чтв: 10:00 - 19:00. Пт: 10:00 - 17:00</p>
+          <p class="footer__copyright">2025 MedBeauty LTD. All rights reserved.</p>
+        </div>
+        <div class="footer__links">
+          <div class="footer__navigation"><a class="footer__item" href="#">
+              <h2>Каталог</h2>
+            </a><a class="footer__item" href="#">
+              <h2>Обучение </h2>
+            </a><a class="footer__item" href="#">
+              <h2>Консалтинг </h2>
+            </a><a class="footer__item" href="#">
+              <h2>Контакты</h2>
+            </a></div>
+          <div class="footer__politics">
+            <a class="footer__item" href="#">
+              <h2>Политика конфиденциальности</h2>
+            </a>
+            <a class="footer__item" href="#">
+              <h2>Условия использования</h2>
+            </a>
+            <a class="footer__item" href="#">
+              <h2>Политика использования файлов Cookies</h2>
+            </a>
+            <a class="footer__item" href="#">
+              <h2>Политика доступности</h2>
+            </a>
+          </div>
+        </div>
+        <div class="footer__programm">
+          <p class="footer__progtxt">Хочешь стать нашим партнером?</p>
+          <p class="maintext footer__text">Оставьте заявку, и мы свяжемся с вами для уточнения деталей</p>
+          <div class="footer__call">
+            <button class="footer__btn button__sub" type="submit">Связаться</button>
+            <div class="footer__socials">
+              <a class="footer__logos-soc" href="#">
+                <picture>
+                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/facebook.svg" type="image/webp">
+                  <img src="<?php bloginfo('template_url'); ?>/assets/img/facebook.svg" alt="facebook logo">
+                </picture>
+              </a>
+              <a class="footer__logos-soc" href="#">
+                <img src="<?php bloginfo('template_url'); ?>/assets/img/instagram.svg" alt="instagram logo">
+              </a>
+              <a class="footer__logos-soc" href="#">
+                <img src="<?php bloginfo('template_url'); ?>/assets/img/youtube.svg" alt="youtube logo"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <?php wp_footer(); ?>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script defer src="js/main.js"></script>
+  <script src="js/inputmask.min.js"></script>
+</body>
+
+</html>
