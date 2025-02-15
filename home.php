@@ -92,10 +92,18 @@ Template Name: home
                         ?>
                       </div>
                     </div>
-                    <p>Современное оборудование, созданное для профессионалов индустрии красоты. Аппараты, которые
-                    помогают проводить эффективные процедуры для ухода за кожей, омоложения, коррекции фигуры и решения
-                    эстетических задач. Удобство использования, надежность и инновационные технологии для повышения
-                    качества услуг и роста вашего бизнеса.</p>
+                    <?php
+                      if (have_rows('slider_subscrible_gr')) {
+                        while (have_rows('slider_subscrible_gr')) : the_row(); ?>
+                        
+                          <p>
+                            <?php the_sub_field('slider-subscr')?>
+                          </p>
+                        
+                      <?php
+                        endwhile;
+                      }
+                      ?>
                   </div>
                 <?php } } wp_reset_postdata(); ?>
               </div>
@@ -117,7 +125,8 @@ Template Name: home
         </div>
       </div>
     </article>
-    <article class="test-drive" id="testdrive">
+    <div id="testdrive"></div><br><br><br><br>
+    <article class="test-drive">
       <div class="container">
         <div class="test-drive__wrapper">
           <div class="test-drive__part1">
@@ -133,12 +142,12 @@ Template Name: home
               <li>Консультация эксперта для подбора технологии конкретно под ваш бизнес</li>
               <li>Оценить возможность субсидирования вашего проекта</li>
             </ul>
-            <button class="test-drive__toform button__sub" type="button">Подробнее</button>
+            <button class="test-drive__toform button__sub" id="decisions" type="button">Подробнее</button>
           </div>
         </div>
       </div>
     </article>
-    <article class="decisions" id="decisions">
+    <article class="decisions">
       <div class="container">
         <div class="decisions__wrapper">
           <div class="decisions__part1">
@@ -160,13 +169,13 @@ Template Name: home
               <li>Аудит проекта и выбор направления</li>
               <li>Заключение договора и оплата</li>
               <li>Разработка стратегии и&nbsp;прохождение обучения</li>
-              <li>Ввод оборудования в&nbsp;эксплуатацию и техническое сопровождение</li>
+              <li id="learning">Ввод оборудования в&nbsp;эксплуатацию и техническое сопровождение</li>
             </ul>
           </div>
         </div>
       </div>
     </article>
-    <article class="learning" id="learning">
+    <article class="learning">
       <div class="container">
         <div class="learning__border">
           <div class="learning__wrapper">
@@ -184,13 +193,13 @@ Template Name: home
               </p>
               <div class="learning__foto-item">
                 <picture>
-                  <source srcset="img/learning_1.webp" type="image/webp">
-                  <img class="learning__staff" src="img/learning_1.png" alt="Персонал 1" loading="lazy">
+                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/learning_1.webp" type="image/webp">
+                  <img class="learning__staff" src="<?php bloginfo('template_url'); ?>/assets/img/learning_1.png" alt="Персонал 1" loading="lazy">
                 </picture>
                 <div class="arrow" id="a1">
                   <picture>
-                    <source srcset="img/learnarr_1.svg" type="image/webp">
-                    <img src="img/learnarr_1.svg" alt="">
+                    <source srcset="<?php bloginfo('template_url'); ?>/assets/img/learnarr_1.svg" type="image/webp">
+                    <img src="<?php bloginfo('template_url'); ?>/assets/img/learnarr_1.svg" alt="">
                   </picture>
                 </div>
               </div>
@@ -239,7 +248,7 @@ Template Name: home
               <div class="learning__foto-item">
                 <picture>
                   <source srcset="<?php bloginfo('template_url'); ?>/assets/img/learning_4.webp" type="image/webp">
-                  <img class="learning__staff" src="<?php bloginfo('template_url'); ?>/assets/img/learning_4.png" alt="Персонал 4" loading="lazy">
+                  <img class="learning__staff" id="trust" src="<?php bloginfo('template_url'); ?>/assets/img/learning_4.png" alt="Персонал 4" loading="lazy">
                 </picture>
                 <div class="arrow" id="a4">
                   <picture>
@@ -253,7 +262,7 @@ Template Name: home
         </div>
       </div>
     </article>
-    <article class="trust" id="trust">
+    <article class="trust">
       <div class="container">
         <section class="map">
           <h2 class="map__title title" id="zagmap">Клиники и салоны по всему миру
@@ -357,14 +366,14 @@ Template Name: home
               </div>
               <picture>
                 <source srcset="<?php bloginfo('template_url'); ?>/assets/img/icon_8.svg" type="image/webp">
-                <img class="whywe__image" src="<?php bloginfo('template_url'); ?>/assets/img/icon_8.svg" alt="">
+                <img class="whywe__image" id="questions" src="<?php bloginfo('template_url'); ?>/assets/img/icon_8.svg" alt="">
               </picture>
             </div>
           </div>
         </section>
       </div>
     </article>
-    <article class="questions" id="questions">
+    <article class="questions">
       <div class="container">
         <div class="questions__wrapper">
           <div class="questions__part1">
@@ -479,7 +488,7 @@ Template Name: home
               <button class="questions__toform" type="button">
                 <picture>
                   <source srcset="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" type="image/webp">
-                  <img src="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" alt="">
+                  <img id="form-down-2" src="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" alt="">
                 </picture>
               </button>
             </div>

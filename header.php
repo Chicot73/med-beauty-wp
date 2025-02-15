@@ -31,8 +31,8 @@
       </div>
       <button class="header__cross" type="button">
         <picture>
-          <source srcset="img/cross.svg" type="image/webp">
-          <img src="img/cross.svg" alt="закрыть дополнительное меню">
+          <source srcset="<?php bloginfo('template_url'); ?>/assets/img/cross.svg" type="image/webp">
+          <img src="<?php bloginfo('template_url'); ?>/assets/img/cross.svg" alt="закрыть дополнительное меню">
         </picture>
       </button>
     </div>
