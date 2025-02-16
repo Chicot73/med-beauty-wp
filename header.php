@@ -4,9 +4,11 @@
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Med Beauty</title>
-  <meta name="description"
-    content="Медицинское и косметологическое оборудование. Индивидуальные решения для вашего бизнеса">
+  <!-- <title>Med Beauty</title> -->
+  <title><?php bloginfo('name'); ?></title>
+  <meta name="<?php bloginfo('description'); ?>">
+  <!-- <meta name="description"
+    content="Медицинское и косметологическое оборудование. Индивидуальные решения для вашего бизнеса"> -->
   <?php wp_head(); ?>
 </head>
 
@@ -19,13 +21,27 @@
           <?php the_custom_logo(); ?>
         </div>
         <nav id="header_links">
-          <a class="header__burger-item" id="testdrive-item" onclick="TestDriveFn()">Test-drive</a>
-          <a class="header__burger-item" href="#">О нас </a>
-          <a class="header__burger-item" href="#">Оборудование</a>
-          <a class="header__burger-item" href="#">Академия</a>
-          <a class="header__burger-item" href="#">Консалтинг</a>
-          <a class="header__burger-item" id="questions-item" onclick="questionsFn()">FAQ</a>
-          <a class="header__burger-item" href="#">Контакты</a>
+          <?php if (get_field('testdrive')) : ?>
+            <a class="header__burger-item" id="testdrive-item" onclick="TestDriveFn()" href="<?= get_field('testdrive')['url'] ?>"><?= get_field('testdrive')['title'] ?></a>
+          <?php endif; ?>
+          <?php if (get_field('aboutus')) : ?>
+            <a class="header__burger-item" href="<?= get_field('aboutus')['url'] ?>"><?= get_field('aboutus')['title'] ?></a>
+          <?php endif; ?>
+          <?php if (get_field('equipment')) : ?>
+            <a class="header__burger-item" href="<?= get_field('equipment')['url'] ?>"><?= get_field('equipment')['title'] ?></a>
+          <?php endif; ?>
+          <?php if (get_field('academy')) : ?>
+            <a class="header__burger-item" href="<?= get_field('academy')['url'] ?>"><?= get_field('academy')['title'] ?></a>
+          <?php endif; ?>
+          <?php if (get_field('consulting')) : ?>
+            <a class="header__burger-item" href="<?= get_field('consulting')['url'] ?>"><?= get_field('consulting')['title'] ?></a>
+          <?php endif; ?>
+          <?php if (get_field('faq')) : ?>
+            <a class="header__burger-item" href="<?= get_field('faq')['url'] ?>" id="questions-item" onclick="questionsFn()"><?= get_field('faq')['title'] ?></a>
+          <?php endif; ?>
+          <?php if (get_field('academy')) : ?>
+            <a class="header__burger-item" href="<?= get_field('contacts')['url'] ?>"><?= get_field('contacts')['title'] ?></a>
+          <?php endif; ?>
         </nav>
         <button class="header__form-btn button__sub" type="button">Связаться</button>
       </div>
@@ -41,8 +57,8 @@
       <label id="label1" for="name">
         <div class="form__imglab">
           <picture>
-            <source srcset="img/form_call.svg" type="image/webp">
-            <img src="img/form_call.svg" alt="name">
+            <source srcset="<?php bloginfo('template_url'); ?>/assets/img/form_call.svg" type="image/webp">
+            <img src="<?php bloginfo('template_url'); ?>/assets/img/form_call.svg" alt="name">
           </picture>
         </div>
         <input class="form__input" type="text" name="name" id="name" placeholder="Ваше имя" maxlength="35">
@@ -50,8 +66,8 @@
       <label id="label2" for="phone">
         <div class="form__imglab">
           <picture>
-            <source srcset="img/form_pers.svg" type="image/webp">
-            <img src="img/form_pers.svg" alt="name">
+            <source srcset="<?php bloginfo('template_url'); ?>/assets/img/form_pers.svg" type="image/webp">
+            <img src="<?php bloginfo('template_url'); ?>/assets/img/form_pers.svg" alt="name">
           </picture>
         </div>
         <input class="form__input tel-selector" type="tel" name="phone" id="phone" placeholder="Ваш телефон">
@@ -78,16 +94,21 @@
         <div class="header__between"></div>
         <div class="header__wrapper">
           <nav class="header__menu">
-            <a class="header__menu-item" id="testdrive-item" onclick="TestDriveFn()">Test-drive
-            </a>
-            <a class="header__menu-item" id="decisions-item" onclick="decisionsFn()">Решения
-            </a>
-            <a class="header__menu-item" id="learning-item" onclick="learningFn()">Обучение
-            </a>
-            <a class="header__menu-item" id="trust-item" onclick="trustFn()">Доверие
-            </a>
-            <a class="header__menu-item" id="questions-item" onclick="questionsFn()">FAQ
-            </a>
+            <?php if (get_field('testdrive_h')) : ?>
+              <a class="header__menu-item" id="testdrive-item" onclick="TestDriveFn()" href="<?= get_field('testdrive_h')['url'] ?>"><?= get_field('testdrive_h')['title'] ?></a>
+            <?php endif; ?>
+            <?php if (get_field('decisions_h')) : ?>
+              <a class="header__menu-item" id="decisions-item" onclick="decisionsFn()" href="<?= get_field('decisions_h')['url'] ?>"><?= get_field('decisions_h')['title'] ?></a>
+            <?php endif; ?>
+            <?php if (get_field('learning_h')) : ?>
+              <a class="header__menu-item" id="learning-item" onclick="learningFn()" href="<?= get_field('learning_h')['url'] ?>"><?= get_field('learning_h')['title'] ?></a>
+            <?php endif; ?>
+            <?php if (get_field('whywe_h')) : ?>
+              <a class="header__menu-item" id="trust-item" onclick="trustFn()" href="<?= get_field('whywe_h')['url'] ?>"><?= get_field('whywe_h')['title'] ?></a>
+            <?php endif; ?>
+            <?php if (get_field('faq_h')) : ?>
+              <a class="header__menu-item" id="questions-item" onclick="questionsFn()" href="<?= get_field('faq_h')['url'] ?>"><?= get_field('faq_h')['title'] ?></a>
+            <?php endif; ?>
             <button class="header__chose-lang" type="button"><span>RU</span>
               <span>
                 <picture>

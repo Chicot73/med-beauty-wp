@@ -10,27 +10,22 @@ Template Name: home
       <div class="container">
         <h1 class="hero__title1">Медицинское и косметологическое оборудование</h1>
         <div class="hero__module01 hero__module">
-          <h2 class="hero__title-big">Медицинское<br>и косметологическое оборудование</h2>
-          <p class="hero__desc">Индивидуальные решения <span>для&nbsp;вашего бизнеса.</span><br>Международно признанный
-            лидер
-          </p>
+          <h2 class="hero__title-big"><?php the_field('hero-title'); ?></h2>
+          <p class="hero__desc"><?php the_field('hero-desc-1'); ?></p>
         </div>
         <div class="hero__module02 hero__module">
-          <h2 class="hero__title-inc">Инновационные технологии</h2>
-          <p class="hero__desc">для косметологических клиник,<br>врачей и домашнего пользования</p>
+          <h2 class="hero__title-inc"><?php the_field('hero-title-2'); ?></h2>
+          <p class="hero__desc"><?php the_field('hero-desc-2'); ?></p>
         </div>
         <div class="hero__module03 hero__module">
-          <h2 class="hero__title-inc hero__title-inc--3">Комплексное решение для проектирования</h2>
-          <p class="hero__desc">и запуска вашего бизнеса, адаптированное под ваши цели и возможности</p>
+          <h2 class="hero__title-inc hero__title-inc--3"><?php the_field('hero-title-3'); ?></h2>
+          <p class="hero__desc"><?php the_field('hero-desc-3'); ?></p>
         </div>
         <div class="hero__module04 hero__module">
-          <h2 class="hero__title-inc">Оборудование. Академия</h2>
-          <p class="hero__desc">Индивидуальные решения для вашего бизнеса</p>
+          <h2 class="hero__title-inc"><?php the_field('hero-title-4'); ?></h2>
+          <p class="hero__desc"><?php the_field('hero-desc-4'); ?></p>
         </div>
-        <picture>
-          <source srcset="<?php bloginfo('template_url'); ?>/assets/img/card_product_big.webp" type="image/webp">
-          <img class="hero__bigobj" src="<?php bloginfo('template_url'); ?>/assets/img/card_product_big.png" alt="косметологическое оборудование">
-        </picture>
+        <img class="hero__bigobj" src="<?php the_field('hero-bigobj'); ?>" alt="косметологическое оборудование">
         <img class="hero__fog" src="<?php bloginfo('template_url'); ?>/assets/img/fog.png" alt="">
         <img class="hero__blur" src="<?php bloginfo('template_url'); ?>/assets/img/blur-m.png" alt="">
         <div class="hero__alert">
@@ -56,30 +51,27 @@ Template Name: home
             <div class="slider__txt">
               <h2 class="slider__zag">Инн<br>ова<br>ции</h2>
               <p class="slider__podz">доступные каждому</p>
-              <button class="slider__form button__sub" type="button">Подробнее</button>
+              <button class="slider__form button__sub" type="button" onclick="moreFn()">Подробнее</button>
             </div>
             <div class="slider__note">
-              <p>Надежное и сертифицированное оборудование, созданное для ценителей красоты</p>
+              <p><?php the_field('slider-desc'); ?></p>
             </div>
           </div>
           <div class="slider__part2">
             <div class="swiper">
               <div class="swiper-wrapper">
                 <?php
-                  global $post;
-
-                  $myposts = get_posts([
-                    'numberposts' => -1
-                  ]);
-
-                  if( $myposts ){
-                    foreach( $myposts as $post ){
-                      setup_postdata( $post );
+                  if (have_rows('slide')) {
+                    while (have_rows('slide')) : the_row();
                 ?>
                   <div class="swiper-slide slider__slide">
                     <div class="txts">
-                      <h3><?php the_title(); ?></h3>
-                      <blockquote><?php the_content(); ?></blockquote>
+                      <h3>
+                        <?php the_sub_field('slide-title')?>
+                      </h3>
+                      <p>
+                        <?php the_sub_field('slide-subtitle')?>
+                      </p>
                     </div>
                     <div class="slider__image">
                       <div class="slider__border1"></div>
@@ -87,25 +79,19 @@ Template Name: home
                       <div class="slider__border3"></div>
                       <div class="slider__border4"></div>
                       <div class="slider__turget">
-                        <?php the_post_thumbnail(
-                          array(344, 576)); 
-                        ?>
+                        <?php if( get_sub_field('slide-foto') ): ?>
+                          <img src="<?php the_sub_field('slide-foto'); ?>" />
+                        <?php endif; ?>
                       </div>
                     </div>
-                    <?php
-                      if (have_rows('slider_subscrible_gr')) {
-                        while (have_rows('slider_subscrible_gr')) : the_row(); ?>
-                        
-                          <p>
-                            <?php the_sub_field('slider-subscr')?>
-                          </p>
-                        
-                      <?php
-                        endwhile;
-                      }
-                      ?>
-                  </div>
-                <?php } } wp_reset_postdata(); ?>
+                    <p>
+                      <?php the_sub_field('slide-subscr')?>
+                    </p>
+                  </div>     
+                <?php
+                  endwhile;
+                  }
+                ?>
               </div>
               <div class="swiper-pagination"></div>
               <div class="slider__btn-next">
@@ -130,19 +116,23 @@ Template Name: home
       <div class="container">
         <div class="test-drive__wrapper">
           <div class="test-drive__part1">
-            <h2 class="title">Test Drive</h2>
-            <p>Протестируйте оборудование в действии перед покупкой. Мы предоставляем возможность оценить эффективность
-              и удобство наших аппаратов в нашем учебном центре. </p>
-            <p>Наши эксперты расскажут о преимуществах, подберут для вас самый оптимальный вариант по цене и
-              направлениях технологий.
-            </p>
+            <h2 class="title"><?php the_field('testdrive-title'); ?></h2>
+            <p><?php the_field('testdrive-intro'); ?></p>
+            <p><?php the_field('testdrive-desc'); ?></p>
             <ul>
-              <li>Оценка в реальных условиях</li>
-              <li>Сравнить различные аппараты и технологии</li>
-              <li>Консультация эксперта для подбора технологии конкретно под ваш бизнес</li>
-              <li>Оценить возможность субсидирования вашего проекта</li>
+              <?php
+                if (have_rows('testdrive-loop')) {
+                  while (have_rows('testdrive-loop')) : the_row();
+              ?>
+              <?php if( get_sub_field('testdrive-loop-i') ): ?>
+                <li><?php the_sub_field('testdrive-loop-i')?></li>
+              <?php endif; ?>
+              <?php
+                endwhile;
+                }
+              ?>
             </ul>
-            <button class="test-drive__toform button__sub" id="decisions" type="button">Подробнее</button>
+            <button class="test-drive__toform button__sub" id="decisions" type="button" onclick="moreFn()">Подробнее</button>
           </div>
         </div>
       </div>
@@ -151,25 +141,25 @@ Template Name: home
       <div class="container">
         <div class="decisions__wrapper">
           <div class="decisions__part1">
-            <h2 class="title" id="t2">Готовые<br>решения</h2>
-            <p class="maintext">Med Beauty оказывает широкий спектр услуг для создания и оснащения косметологических
-              кабинетов, студий и клиник красоты. Мы разрабатываем индивидуальные решения, учитывая особенности вашего
-              бизнеса, пространства и бюджета: от небольшого домашнего кабинета, студии эпиляции или коррекции фигуры до
-              сети многопрофильных клиник красоты.
-            </p>
-            <p class="maintext">Ассортиментная матрица оказываемых услуг включает более ста пятидесяти процедурНаш
-              консалтинг способствует бьюти бизнесам в определении точек роста, оптимизации процессов, повышении
-              эффективности и внедрении статегии роста.
-            </p> <button class="decisions__toform button__sub" type="button">Подробнее</button>
+            <h2 class="title" id="t2"><?php the_field('decisions-title'); ?></h2>
+            <p class="maintext"><?php the_field('decisions-p'); ?></p>
+            <p class="maintext"><?php the_field('decisions-p-2'); ?></p>
+            <button class="decisions__toform button__sub" type="button" onclick="moreFn()">Подробнее</button>
           </div>
           <div class="decisions__part2">
-            <p class="decisions__subtitle">Формула реализации проекта:</p>
+            <p class="decisions__subtitle"><?php the_field('decisions-loop-title'); ?></p>
             <ul class="decisions__list">
-              <li>Первичная консультация</li>
-              <li>Аудит проекта и выбор направления</li>
-              <li>Заключение договора и оплата</li>
-              <li>Разработка стратегии и&nbsp;прохождение обучения</li>
-              <li id="learning">Ввод оборудования в&nbsp;эксплуатацию и техническое сопровождение</li>
+              <?php
+                if (have_rows('decisions-loop')) {
+                  while (have_rows('decisions-loop')) : the_row();
+              ?>
+              <?php if( get_sub_field('decisions-loop-i') ): ?>
+                <li><?php the_sub_field('decisions-loop-i')?></li>
+              <?php endif; ?>
+              <?php
+                endwhile;
+                }
+              ?>
             </ul>
           </div>
         </div>
@@ -179,18 +169,13 @@ Template Name: home
       <div class="container">
         <div class="learning__border">
           <div class="learning__wrapper">
-            <h2 class="learning__title title" id="learn_h2">Академия<br>Med Beauty</h2>
-            <p class="maintext learning__textbox" id="learn_p">Обучение работе с&nbsp;оборудованием
-              для&nbsp;косметологов и врачей по авторским курсам. Профессиональные программы с&nbsp;выдачей
-              международного диплома, дающего право на профессиональную страховку в Израиле
-            </p>
+            <h2 class="learning__title title" id="learn_h2"><?php the_field('learning-title'); ?></h2>
+            <p class="maintext learning__textbox" id="learn_p"><?php the_field('learning-p'); ?></p>
           </div>
           <div class="learning__staffgroup">
             <div class="learning__module" id="learn_module01">
-              <h3 class="learning__title-inc">Новичкам в&nbsp;индустрии красоты</h3>
-              <p class="learning__desc">которые хотят получить фундаментальные знания и&nbsp;практические навыки работы
-                с&nbsp;оборудованием
-              </p>
+              <h3 class="learning__title-inc"><?php the_field('learning-module-1-title'); ?></h3>
+              <p class="learning__desc"><?php the_field('learning-module-1-p'); ?></p>
               <div class="learning__foto-item">
                 <picture>
                   <source srcset="<?php bloginfo('template_url'); ?>/assets/img/learning_1.webp" type="image/webp">
@@ -205,10 +190,8 @@ Template Name: home
               </div>
             </div>
             <div class="learning__module" id="learn_module02">
-              <h3 class="learning__title-inc">Опытным косметологам и&nbsp;врачам</h3>
-              <p class="learning__desc">желающим расширить спектр предоставляемых услуг, освоить современные технологии
-                и повысить квалификацию
-              </p>
+              <h3 class="learning__title-inc"><?php the_field('learning-module-2-title'); ?></h3>
+              <p class="learning__desc"><?php the_field('learning-module-2-p'); ?></p>
               <div class="learning__foto-item">
                 <picture>
                   <source srcset="<?php bloginfo('template_url'); ?>/assets/img/learning_2.webp" type="image/webp">
@@ -223,10 +206,8 @@ Template Name: home
               </div>
             </div>
             <div class="learning__module" id="learn_module03">
-              <h3 class="learning__title-inc">Владельцам клиник<br>и салонов красоты</h3>
-              <p class="learning__desc">cтремящимся внедрить новые процедуры, освоить передовые методики и улучшить
-                качество услуг
-              </p>
+              <h3 class="learning__title-inc"><?php the_field('learning-module-3-title'); ?></h3>
+              <p class="learning__desc"><?php the_field('learning-module-3-p'); ?></p>
               <div class="learning__foto-item">
                 <picture>
                   <source srcset="<?php bloginfo('template_url'); ?>/assets/img/learning_3.webp" type="image/webp">
@@ -241,10 +222,8 @@ Template Name: home
               </div>
             </div>
             <div class="learning__module" id="learn_module04">
-              <h3 class="learning__title-inc">Бизнес инвесторам</h3>
-              <p class="learning__desc">Вы узнаете, как выбирать оборудование, оценивать рентабельность, масштабировать
-                успешный бизнес при минимальных вложениях
-              </p>
+              <h3 class="learning__title-inc"><?php the_field('learning-module-4-title'); ?></h3>
+              <p class="learning__desc"><?php the_field('learning-module-4-p'); ?></p>
               <div class="learning__foto-item">
                 <picture>
                   <source srcset="<?php bloginfo('template_url'); ?>/assets/img/learning_4.webp" type="image/webp">
@@ -265,110 +244,39 @@ Template Name: home
     <article class="trust">
       <div class="container">
         <section class="map">
-          <h2 class="map__title title" id="zagmap">Клиники и салоны по всему миру
-            <span>выбирают оборудование Med&nbsp;Beauty</span>
-          </h2>
-          <p class="maintext map__textbox" id="podzagmap">Врачи и клиники по всему миру доверяют оборудованию медбьюти
-          </p>
+          <h2 class="map__title title" id="zagmap"><?php the_field('map-title'); ?></h2>
+          <p class="maintext map__textbox" id="podzagmap"><?php the_field('map-text'); ?></p>
           <picture>
             <source srcset="<?php bloginfo('template_url'); ?>/assets/img/map.webp" type="image/webp">
             <img class="map__image" src="<?php bloginfo('template_url'); ?>/assets/img/map.png" alt="Карта клиник" loading="lazy">
           </picture>
           <div class="map__footer">
-            <p class="maintext map__textbox-2">Наше косметологическое оборудование используется в ведущих клиниках и у
-              экспертов индустрии. Доверие профессионалов, отзывы клиентов и международные стандарты подтверждают его
-              качество, безопасность и эффективность
-            </p>
-            <button class="map__toform button__sub" type="button">О нас</button>
+            <p class="maintext map__textbox-2"><?php the_field('map-p'); ?></p>
+            <?php if (get_field('aboutus')) : ?>
+              <a class="map__toform button__sub" href="<?= get_field('map-link')['url'] ?>"><?= get_field('map-link')   ['title'] ?></a>
+            <?php endif; ?>
           </div>
         </section>
         <section class="whywe">
-          <h2 class="whywe__title title" id="why_title">Почему я должен выбрать<br>ваше оборудование</h2>
+          <h2 class="whywe__title title" id="why_title"><?php the_field('whywe-title'); ?></h2>
           <div class="whywe__wrapper">
+            <?php
+              if (have_rows('whywe-loop')) {
+              while (have_rows('whywe-loop')) : the_row();
+            ?>
             <div class="whywe__block">
               <div class="whywe__wrap">
-                <h3>Доказанная эффективность</h3>
-                <p>В отличии от аналогов, результаты нашего оборудования подтверждены клинически</p>
+                <h3><?php the_sub_field('whywe-loop-title')?></h3>
+                <p><?php the_sub_field('whywe-loop-p')?></p>
               </div>
-              <picture>
-                <source srcset="<?php bloginfo('template_url'); ?>/assets/img/icon_1.svg" type="image/webp">
-                <img class="whywe__image" src="<?php bloginfo('template_url'); ?>/assets/img/icon_1.svg" alt="">
-              </picture>
+              <?php if( get_sub_field('whywe-loop-img') ): ?>
+                <img class="whywe__image" src="<?php the_sub_field('whywe-loop-img')?>" alt="">
+              <?php endif; ?>
             </div>
-            <div class="whywe__block">
-              <div class="whywe__wrap">
-                <h3>Поддержка</h3>
-                <p>Обучение, техническое сопровождение и маркетинговые рекомендации</p>
-              </div>
-              <picture>
-                <source srcset="<?php bloginfo('template_url'); ?>/assets/img/icon_2.svg" type="image/webp">
-                <img class="whywe__image" src="<?php bloginfo('template_url'); ?>/assets/img/icon_2.svg" alt="">
-              </picture>
-            </div>
-            <div class="whywe__block">
-              <div class="whywe__wrap">
-                <h3>Окупаемость</h3>
-                <p>Стремительная прибыль благодаря эффективности и надежности оборудования</p>
-              </div>
-              <picture>
-                <source srcset="<?php bloginfo('template_url'); ?>/assets/img/icon_3.svg" type="image/webp">
-                <img class="whywe__image" src="<?php bloginfo('template_url'); ?>/assets/img/icon_3.svg" alt="">
-              </picture>
-            </div>
-            <div class="whywe__block">
-              <div class="whywe__wrap">
-                <h3>Безопасность и Долговечность</h3>
-                <p>Международно подтвержденные сертификаты &lpar;CE, FDA&rpar; и соответственно высокие стандарты на
-                  производстве нивелируют большинство возможных рисков</p>
-              </div>
-              <picture>
-                <source srcset="<?php bloginfo('template_url'); ?>/assets/img/icon_4.svg" type="image/webp"><img class="whywe__image" src="<?php bloginfo('template_url'); ?>/assets/img/icon_4.svg" alt="">
-              </picture>
-            </div>
-            <div class="whywe__block">
-              <div class="whywe__wrap">
-                <h3>Инновации и Универсальность</h3>
-                <p>Уникальные технологии открывают широкий спектр возможностей с целью расширения и интеграции
-                  нескольких услуг на одном оборудовании
-                </p>
-              </div>
-              <picture>
-                <source srcset="<?php bloginfo('template_url'); ?>/assets/img/icon_5.svg" type="image/webp">
-                <img class="whywe__image" src="<?php bloginfo('template_url'); ?>/assets/img/icon_5.svg" alt="">
-              </picture>
-            </div>
-            <div class="whywe__block">
-              <div class="whywe__wrap">
-                <h3>Уникальные авторские методики</h3>
-                <p>Наше оборудование снабжено эксклюзивными протоколами от ведущих специалистов</p>
-              </div>
-              <picture>
-                <source srcset="<?php bloginfo('template_url'); ?>/assets/img/icon_6.svg" type="image/webp">
-                <img class="whywe__image" src="<?php bloginfo('template_url'); ?>/assets/img/icon_6.svg" alt="">
-              </picture>
-            </div>
-            <div class="whywe__block">
-              <div class="whywe__wrap">
-                <h3>Энергоэффективность</h3>
-                <p>Оборудование потребляет меньше электроэнергии при сохранении высокой мощности, снижая
-                  эксплуатационные расходы
-                </p>
-              </div>
-              <picture>
-                <source srcset="<?php bloginfo('template_url'); ?>/assets/img/icon_7.svg" type="image/webp">
-                <img class="whywe__image" src="<?php bloginfo('template_url'); ?>/assets/img/icon_7.svg" alt="">
-              </picture>
-            </div>
-            <div class="whywe__block">
-              <div class="whywe__wrap">
-                <h3>Репутация</h3>
-                <p>Оборудование уже успешно используется в известных клиниках</p>
-              </div>
-              <picture>
-                <source srcset="<?php bloginfo('template_url'); ?>/assets/img/icon_8.svg" type="image/webp">
-                <img class="whywe__image" id="questions" src="<?php bloginfo('template_url'); ?>/assets/img/icon_8.svg" alt="">
-              </picture>
-            </div>
+            <?php
+              endwhile;
+              }
+            ?>
           </div>
         </section>
       </div>
@@ -377,17 +285,19 @@ Template Name: home
       <div class="container">
         <div class="questions__wrapper">
           <div class="questions__part1">
-            <h2 class="questions__title title">Частые вопросы</h2>
-            <p class="maintext questions__textbox">Остались вопросы? Задайте их нам!</p>
+            <h2 class="questions__title title"><?php the_field('faq-title'); ?></h2>
+            <p class="maintext questions__textbox"><?php the_field('faq-desc'); ?></p>
             <button class="questions__toform button__sub" type="button" onclick="moreFn()">Подробнее</button>
           </div>
           <div class="questions__part2">
+            <?php
+              if (have_rows('faq-loop')) {
+              while (have_rows('faq-loop')) : the_row();
+            ?>
             <div class="questions__block">
               <div class="questions__texts">
-                <h3>Какая гарантия предоставляется на оборудование, и как организовано техническое обслуживание?</h3>
-                <p>Срок гарантии на оборудование начинается от 12 месяцев. По истечении гарантийного срока мы
-                  предоставляем услуги постгарантийного обслуживания
-                </p>
+                <h3><?php the_sub_field('faq-loop-ask')?></h3>
+                <p><?php the_sub_field('faq-loop-answer')?></p>
               </div>
               <button class="questions__toform" type="button">
                 <picture>
@@ -396,102 +306,10 @@ Template Name: home
                 </picture>
               </button>
             </div>
-            <div class="questions__block">
-              <div class="questions__texts">
-                <h3>Обязательно ли обладать медицинским образованием, чтобы открыть клинику или кабинет?</h3>
-                <p>Срок гарантии на оборудование начинается от 12 месяцев. По истечении гарантийного срока мы
-                  предоставляем услуги постгарантийного обслуживания
-                </p>
-              </div>
-              <button class="questions__toform" type="button">
-                <picture>
-                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" type="image/webp">
-                  <img src="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" alt="">
-                </picture>
-              </button>
-            </div>
-            <div class="questions__block">
-              <div class="questions__texts">
-                <h3>Действительно ли оборудование помогает достигать заявленных результатов &lpar;например, снижение
-                  объемов, лифтинг&rpar;?
-                </h3>
-                <p>Срок гарантии на оборудование начинается от 12 месяцев. По истечении гарантийного срока мы
-                  предоставляем услуги постгарантийного обслуживания
-                </p>
-              </div> <button class="questions__toform" type="button">
-                <picture>
-                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" type="image/webp"><img src="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" alt="">
-                </picture>
-              </button>
-            </div>
-            <div class="questions__block">
-              <div class="questions__texts">
-                <h3>Какое обучение я получу для работы с этим оборудованием и не возникнут ли сложности у новичка?</h3>
-                <p>Срок гарантии на оборудование начинается от 12 месяцев. По истечении гарантийного срока мы
-                  предоставляем услуги постгарантийного обслуживания
-                </p>
-              </div> <button class="questions__toform" type="button">
-                <picture>
-                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" type="image/webp">
-                  <img src="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" alt="">
-                </picture>
-              </button>
-            </div>
-            <div class="questions__block">
-              <div class="questions__texts">
-                <h3>Как быстро я смогу окупить инвестиции в оборудование?</h3>
-                <p>Срок гарантии на оборудование начинается от 12 месяцев. По истечении гарантийного срока мы
-                  предоставляем услуги постгарантийного обслуживания
-                </p>
-              </div>
-              <button class="questions__toform" type="button">
-                <picture>
-                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" type="image/webp">
-                  <img src="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" alt="">
-                </picture>
-              </button>
-            </div>
-            <div class="questions__block">
-              <div class="questions__texts">
-                <h3>Есть ли у вас программы лизинга или рассрочки для приобретения оборудования?</h3>
-                <p>Срок гарантии на оборудование начинается от 12 месяцев. По истечении гарантийного срока мы
-                  предоставляем услуги постгарантийного обслуживания
-                </p>
-              </div> <button class="questions__toform" type="button">
-                <picture>
-                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" type="image/webp">
-                  <img src="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" alt="">
-                </picture>
-              </button>
-            </div>
-            <div class="questions__block">
-              <div class="questions__texts">
-                <h3>Могу ли я увидеть оборудование в работе до покупки, например во время мастер-класса или
-                  демонстрации?
-                </h3>
-                <p>Срок гарантии на оборудование начинается от 12 месяцев. По истечении гарантийного срока мы
-                  предоставляем услуги постгарантийного обслуживания
-                </p>
-              </div> <button class="questions__toform" type="button">
-                <picture>
-                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" type="image/webp">
-                  <img src="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" alt="">
-                </picture>
-              </button>
-            </div>
-            <div class="questions__block">
-              <div class="questions__texts">
-                <h3>Вы помогаете с продвижением услуг, предоставляете рекламные материалы или консультации?</h3>
-                <p>Срок гарантии на оборудование начинается от 12 месяцев. По истечении гарантийного срока мы
-                  предоставляем услуги постгарантийного обслуживания</p>
-              </div>
-              <button class="questions__toform" type="button">
-                <picture>
-                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" type="image/webp">
-                  <img id="form-down-2" src="<?php bloginfo('template_url'); ?>/assets/img/arrow.svg" alt="">
-                </picture>
-              </button>
-            </div>
+            <?php
+              endwhile;
+              }
+            ?>
           </div>
         </div>
       </div>
@@ -504,7 +322,7 @@ Template Name: home
             <label id="label1-f" for="name-f">
               <div class="form__imglab">
                 <picture>
-                  <source srcset="img/form_call.svg" type="image/webp"><img src="img/form_call.svg" alt="name">
+                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/form_call.svg" type="image/webp"><img src="<?php bloginfo('template_url'); ?>/assets/img/form_call.svg" alt="name">
                 </picture>
               </div>
               <input class="form__input" type="text" name="name_f" id="name-f" placeholder="Ваше имя">
@@ -512,8 +330,8 @@ Template Name: home
             <label id="label2-f" for="phone-f">
               <div class="form__imglab">
                 <picture>
-                  <source srcset="img/form_pers.svg" type="image/webp">
-                  <img src="img/form_pers.svg" alt="name">
+                  <source srcset="<?php bloginfo('template_url'); ?>/assets/img/form_pers.svg" type="image/webp">
+                  <img src="<?php bloginfo('template_url'); ?>/assets/img/form_pers.svg" alt="name">
                 </picture>
               </div>
               <input class="form__input tel-selector" type="tel" name="phone_f" id="phone-f" placeholder="Ваш телефон">
@@ -532,14 +350,10 @@ Template Name: home
             <button class="form__btn button__sub" type="submit">Связаться</button>
           </form>
           <aside class="video more__video">
-            <h2 class="video__title title" id="more_video">Видео о&nbsp;нашей компании</h2>
-            <p class="maintext16 video__textbox">Стремительная прибыль благодаря эффективности и надежности оборудования
-            </p>
-            <a class="video__link" href="#" id="mark" data-video="m35sHBpUXBQ">
-              <picture>
-                <source srcset="<?php bloginfo('template_url'); ?>/assets/img/youtube.webp" type="image/webp">
-                <img src="<?php bloginfo('template_url'); ?>/assets/img/youtube.jpg" alt="Ролик компании Med Beauty" loading="lazy">
-              </picture>
+            <h2 class="video__title title" id="more_video"><?php the_field('video-title'); ?></h2>
+            <p class="maintext16 video__textbox"><?php the_field('video-desc'); ?></h2></p>
+            <a class="video__link" href="#" id="mark" data-video="<?php the_field('video-link'); ?>">
+              <img src="<?php the_field('video-image'); ?>" alt="Ролик компании Med Beauty" >
               <div class="video__btn">
                 <picture>
                   <source srcset="<?php bloginfo('template_url'); ?>/assets/img/video_btn.svg" type="image/webp">
